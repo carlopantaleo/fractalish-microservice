@@ -20,6 +20,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalishMicroservice.Abstractions.Tests", "FractalishMicroservice.Abstractions.Tests\FractalishMicroservice.Abstractions.Tests.csproj", "{FB74EEF9-593E-43CF-879A-4F1DBEBA377E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalishMicroservice.Api", "FractalishMicroservice.Api\FractalishMicroservice.Api.csproj", "{FB0E0A44-6BBF-450E-BCF6-E4FED1FBA531}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalishMicroservice.Api.Tests", "FractalishMicroservice.Api.Tests\FractalishMicroservice.Api.Tests.csproj", "{BFFFFDAE-378F-4720-9DD8-DD2C08623A5C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,5 +54,13 @@ Global
 		{FB74EEF9-593E-43CF-879A-4F1DBEBA377E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB74EEF9-593E-43CF-879A-4F1DBEBA377E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB74EEF9-593E-43CF-879A-4F1DBEBA377E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB0E0A44-6BBF-450E-BCF6-E4FED1FBA531}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB0E0A44-6BBF-450E-BCF6-E4FED1FBA531}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB0E0A44-6BBF-450E-BCF6-E4FED1FBA531}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB0E0A44-6BBF-450E-BCF6-E4FED1FBA531}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFFFFDAE-378F-4720-9DD8-DD2C08623A5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFFFFDAE-378F-4720-9DD8-DD2C08623A5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFFFFDAE-378F-4720-9DD8-DD2C08623A5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFFFFDAE-378F-4720-9DD8-DD2C08623A5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
