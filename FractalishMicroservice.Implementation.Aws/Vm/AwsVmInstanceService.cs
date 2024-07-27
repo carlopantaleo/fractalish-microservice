@@ -14,11 +14,11 @@ public sealed class AwsVmInstanceService : IVmInstanceService, IDisposable
         _ec2Client = ec2Client;
     }
 
-    public async Task<string> CreateVmInstance(string instanceType, string amiId)
+    public async Task<string> CreateVmInstance(string instanceType, string imageId)
     {
         var request = new RunInstancesRequest
         {
-            ImageId = amiId,
+            ImageId = imageId,
             InstanceType = instanceType,
             MinCount = 1,
             MaxCount = 1
