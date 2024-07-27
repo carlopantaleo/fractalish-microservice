@@ -1,31 +1,56 @@
 ﻿using Amazon.EC2;
+using Amazon.EC2.Model;
 using FractalishMicroservice.Abstractions.Vm;
-using FractalishMicroservice.Implementation.Aws.Configuration;
-using Microsoft.Extensions.Options;
+using FractalishMicroservice.Implementation.Aws.Utils;
 
 namespace FractalishMicroservice.Implementation.Aws.Vm;
 
-public class AwsVmInstanceService : IVmInstanceService
+public sealed class AwsVmInstanceService : IVmInstanceService, IDisposable
 {
     private readonly IAmazonEC2 _ec2Client;
 
-    public AwsVmInstanceService(IOptions<AwsConfiguration> awsConfig)
+    public AwsVmInstanceService(IAmazonEC2 ec2Client)
     {
-        var config = awsConfig.Value;
-        _ec2Client = new AmazonEC2Client(config.AccessKey, config.SecretKey, Amazon.RegionEndpoint.GetBySystemName(config.Region));
+        _ec2Client = ec2Client;
     }
 
-    public async Task<string> CreateVmInstance(string instanceType, string amiId) {
-        throw new NotImplementedException();
+    public async Task<string> CreateVmInstance(string instanceType, string amiId)
+    {
+        var request = new RunInstancesRequest
+        {
+            ImageId = amiId,
+            InstanceType = instanceType,
+            MinCount = 1,
+            MaxCount = 1
+        };
+
+        var response = await _ec2Client.RunInstancesAsync(request);
+        return response.Reservation.Instances[0].InstanceId;
     }
 
     public async Task TerminateVmInstance(string instanceId)
     {
-        throw new NotImplementedException();
+        var request = new TerminateInstancesRequest
+        {
+            InstanceIds = [instanceId]
+        };
+
+        await _ec2Client.TerminateInstancesAsync(request);
     }
 
     public async Task<VmInstanceState> GetVmInstanceState(string instanceId)
     {
-        throw new NotImplementedException();
+        var request = new DescribeInstancesRequest
+        {
+            InstanceIds = [instanceId]
+        };
+
+        var response = await _ec2Client.DescribeInstancesAsync(request);
+        return response.Reservations[0].Instances[0].State.ToVmInstanceState();
+    }
+
+    public void Dispose()
+    {
+        _ec2Client.Dispose();
     }
 }
