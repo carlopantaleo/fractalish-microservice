@@ -19,7 +19,7 @@ public static class InstanceStateConverter
         ArgumentNullException.ThrowIfNull(instanceState);
 
         // Extract the low byte value of the code.
-        int lowByteCode = instanceState.Code & 0xFF;
+        var lowByteCode = instanceState.Code & 0xFF;
 
         return lowByteCode switch
         {
