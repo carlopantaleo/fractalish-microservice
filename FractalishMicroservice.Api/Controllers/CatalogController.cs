@@ -4,6 +4,9 @@ using Microsoft.Extensions.Options;
 
 namespace FractalishMicroservice.Api.Controllers;
 
+/// <summary>
+/// Provides endpoints for retrieving service catalog information.
+/// </summary>
 [ApiController]
 [Route("v2/catalog")]
 public class CatalogController : ControllerBase
@@ -15,6 +18,10 @@ public class CatalogController : ControllerBase
         _catalogConfig = catalogConfig.Value;
     }
 
+    /// <summary>
+    /// Gets the service catalog.
+    /// </summary>
+    /// <returns>The service catalog.</returns>
     [HttpGet]
     public IActionResult GetCatalog()
     {
@@ -24,8 +31,14 @@ public class CatalogController : ControllerBase
         });
     }
 
+    /// <summary>
+    /// Represents the response for GET /v2/catalog endpoint.
+    /// </summary>
     public class GetCatalogResponse
     {
+        /// <summary>
+        /// The list of service offerings.
+        /// </summary>
         public IEnumerable<ServiceOffering> Services { get; set; } = [];
     }
 }
