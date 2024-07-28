@@ -3,6 +3,8 @@ using FractalishMicroservice.Abstractions.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace FractalishMicroservice.Infrastructure.Middlewares;
 
@@ -10,11 +12,15 @@ public class ExceptionHandlerMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly IHostEnvironment _env;
+    private readonly ILogger<ExceptionHandlerMiddleware> _logger;
 
-    public ExceptionHandlerMiddleware(RequestDelegate next, IHostEnvironment env)
+    public ExceptionHandlerMiddleware(RequestDelegate next,
+                                      IHostEnvironment env,
+                                      ILogger<ExceptionHandlerMiddleware>? logger = null)
     {
         _next = next;
         _env = env;
+        _logger = logger ?? NullLogger<ExceptionHandlerMiddleware>.Instance;
     }
 
     public async Task InvokeAsync(HttpContext context)
@@ -31,6 +37,8 @@ public class ExceptionHandlerMiddleware
 
     private async Task HandleExceptionAsync(HttpContext context, Exception ex)
     {
+        _logger.LogError(ex, "Exception caught while processing request");
+
         context.Response.StatusCode = ex switch
         {
             ServiceInstanceException serviceInstanceException => (int)serviceInstanceException.StatusCode,
