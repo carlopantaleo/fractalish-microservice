@@ -1,5 +1,7 @@
-﻿using Amazon.EC2;
+﻿using System.Net;
+using Amazon.EC2;
 using Amazon.EC2.Model;
+using FractalishMicroservice.Abstractions.Exceptions;
 using FractalishMicroservice.Abstractions.Vm;
 using FractalishMicroservice.Implementation.Aws.Utils;
 
@@ -24,8 +26,19 @@ public sealed class AwsVmInstanceService : IVmInstanceService, IDisposable
             MaxCount = 1
         };
 
-        var response = await _ec2Client.RunInstancesAsync(request);
-        return response.Reservation.Instances[0].InstanceId;
+        try
+        {
+            var response = await _ec2Client.RunInstancesAsync(request);
+            return response.Reservation.Instances[0].InstanceId;
+        }
+        catch (AmazonEC2Exception ex)
+        {
+            throw new ServiceInstanceException(ex.StatusCode, ex.Message, ex);
+        }
+        catch (Exception ex)
+        {
+            throw new ServiceInstanceException(HttpStatusCode.InternalServerError, "Error creating VM instance.", ex);
+        }
     }
 
     public async Task TerminateVmInstance(string instanceId)

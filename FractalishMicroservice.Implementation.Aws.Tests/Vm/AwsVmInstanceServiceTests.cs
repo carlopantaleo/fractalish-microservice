@@ -1,7 +1,10 @@
-﻿using Amazon.EC2;
+﻿using System.Net;
+using Amazon.EC2;
 using Amazon.EC2.Model;
+using Amazon.Runtime;
 using AutoFixture;
 using FluentAssertions;
+using FractalishMicroservice.Abstractions.Exceptions;
 using FractalishMicroservice.Abstractions.Vm;
 using FractalishMicroservice.Implementation.Aws.Vm;
 using FractalishMicroservice.Tests.Common;
@@ -21,7 +24,7 @@ public sealed class AwsVmInstanceServiceTests : TestBase, IDisposable
     }
 
     [Fact]
-    public async Task CreateVmInstance_ShouldCallRunInstancesAsync_AndReturnInstanceId()
+    public async Task CreateVmInstance_ValidInstanceTypeAndAmid_CallsRunInstances()
     {
         // Arrange
         var instanceType = _fixture.Create<string>();
@@ -52,7 +55,66 @@ public sealed class AwsVmInstanceServiceTests : TestBase, IDisposable
     }
 
     [Fact]
-    public async Task TerminateVmInstance_ShouldCallTerminateInstancesAsync()
+    public async Task CreateVmInstance_Exception_ThrowsServiceInstanceException()
+    {
+        // Arrange
+        var exception = new Exception("Test exception");
+        var instanceType = _fixture.Create<string>();
+        var amiId = _fixture.Create<string>();
+
+        _ec2ClientMock
+            .Setup(x => x.RunInstancesAsync(It.Is<RunInstancesRequest>(request =>
+                    request.ImageId == amiId &&
+                    request.InstanceType == instanceType &&
+                    request.MinCount == 1 &&
+                    request.MaxCount == 1),
+                default))
+            .ThrowsAsync(exception);
+
+        // Act
+        var act = async () => await _sut.CreateVmInstance(instanceType, amiId);
+
+        // Assert
+        await act.Should()
+            .ThrowAsync<ServiceInstanceException>()
+            .Where(e => e.StatusCode == HttpStatusCode.InternalServerError &&
+                        e.Message == "Error creating VM instance." &&
+                        e.InnerException == exception);
+        VerifyAll();
+    }
+
+    [Fact]
+    public async Task CreateVmInstance_EC2Exception_ThrowsServiceInstanceException()
+    {
+        // Arrange
+        var exception = new AmazonEC2Exception("Test exception", ErrorType.Unknown, string.Empty, string.Empty,
+            HttpStatusCode.Conflict);
+        var instanceType = _fixture.Create<string>();
+        var amiId = _fixture.Create<string>();
+
+        _ec2ClientMock
+            .Setup(x => x.RunInstancesAsync(It.Is<RunInstancesRequest>(request =>
+                    request.ImageId == amiId &&
+                    request.InstanceType == instanceType &&
+                    request.MinCount == 1 &&
+                    request.MaxCount == 1),
+                default))
+            .ThrowsAsync(exception);
+
+        // Act
+        var act = async () => await _sut.CreateVmInstance(instanceType, amiId);
+
+        // Assert
+        await act.Should()
+            .ThrowAsync<ServiceInstanceException>()
+            .Where(e => e.StatusCode == HttpStatusCode.Conflict &&
+                        e.Message == "Test exception" &&
+                        e.InnerException == exception);
+        VerifyAll();
+    }
+
+    [Fact]
+    public async Task TerminateVmInstance_ValidInstanceId_CallsTerminateInstancesAsync()
     {
         // Arrange
         var instanceId = _fixture.Create<string>();
@@ -71,7 +133,7 @@ public sealed class AwsVmInstanceServiceTests : TestBase, IDisposable
     }
 
     [Fact]
-    public async Task GetVmInstanceState_ShouldCallDescribeInstancesAsync_AndReturnVmInstanceState()
+    public async Task GetVmInstanceState_ValidInstanceId_ReturnsVmInstanceState()
     {
         // Arrange
         var instanceId = _fixture.Create<string>();
