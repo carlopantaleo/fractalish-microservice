@@ -58,8 +58,28 @@ public sealed class AwsVmInstanceService : IVmInstanceService, IDisposable
             InstanceIds = [instanceId]
         };
 
-        var response = await _ec2Client.DescribeInstancesAsync(request);
-        return response.Reservations[0].Instances[0].State.ToVmInstanceState();
+        try
+        {
+            var response = await _ec2Client.DescribeInstancesAsync(request);
+
+            var instancesCount = response?.Reservations?.FirstOrDefault()?.Instances?.Count ?? 0;
+            if (instancesCount == 0)
+            {
+                throw new ServiceInstanceException(HttpStatusCode.NotFound,
+                    $"No VM instance found with ID: {instanceId}");
+            }
+
+            return response!.Reservations![0].Instances[0].State.ToVmInstanceState();
+        }
+        catch (AmazonEC2Exception ex)
+        {
+            throw new ServiceInstanceException(ex.StatusCode, ex.Message, ex);
+        }
+        catch (Exception ex) when (ex is not ServiceInstanceException)
+        {
+            throw new ServiceInstanceException(HttpStatusCode.InternalServerError,
+                "Error retrieving VM instance state.", ex);
+        }
     }
 
     public void Dispose()

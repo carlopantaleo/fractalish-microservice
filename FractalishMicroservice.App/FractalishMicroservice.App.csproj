@@ -20,6 +20,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\FractalishMicroservice.Api\FractalishMicroservice.Api.csproj" />
+      <ProjectReference Include="..\FractalishMicroservice.Implementation.Aws\FractalishMicroservice.Implementation.Aws.csproj" />
     </ItemGroup>
 
 </Project>

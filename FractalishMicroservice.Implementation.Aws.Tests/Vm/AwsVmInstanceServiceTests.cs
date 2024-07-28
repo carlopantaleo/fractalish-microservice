@@ -164,6 +164,78 @@ public sealed class AwsVmInstanceServiceTests : TestBase, IDisposable
     }
 
     [Fact]
+    public async Task GetVmInstanceState_NonExistentInstanceId_ThrowsServiceInstanceException()
+    {
+        // Arrange
+        var instanceId = _fixture.Create<string>();
+
+        _ec2ClientMock
+            .Setup(x => x.DescribeInstancesAsync(It.IsAny<DescribeInstancesRequest>(), default))
+            .ReturnsAsync(new DescribeInstancesResponse());
+
+        // Act
+        var act = async () => await _sut.GetVmInstanceState(instanceId);
+
+        // Assert
+        await act.Should()
+            .ThrowAsync<ServiceInstanceException>()
+            .Where(e => e.StatusCode == HttpStatusCode.NotFound &&
+                        e.Message == $"No VM instance found with ID: {instanceId}");
+        VerifyAll();
+    }
+
+    [Fact]
+    public async Task GetVmInstanceState_ThrowsAmazonEC2Exception_ThrowsServiceInstanceException()
+    {
+        // Arrange
+        var instanceId = _fixture.Create<string>();
+        var exception = new AmazonEC2Exception("Test exception", ErrorType.Unknown, string.Empty, string.Empty,
+            HttpStatusCode.BadRequest);
+
+        _ec2ClientMock
+            .Setup(x => x.DescribeInstancesAsync(It.Is<DescribeInstancesRequest>(request =>
+                    request.InstanceIds[0] == instanceId),
+                default))
+            .ThrowsAsync(exception);
+
+        // Act
+        var act = async () => await _sut.GetVmInstanceState(instanceId);
+
+        // Assert
+        await act.Should()
+            .ThrowAsync<ServiceInstanceException>()
+            .Where(e => e.StatusCode == HttpStatusCode.BadRequest &&
+                        e.Message == "Test exception" &&
+                        e.InnerException == exception);
+        VerifyAll();
+    }
+
+    [Fact]
+    public async Task GetVmInstanceState_ThrowsException_ThrowsServiceInstanceException()
+    {
+        // Arrange
+        var instanceId = _fixture.Create<string>();
+        var exception = new Exception("Test Exception");
+
+        _ec2ClientMock
+            .Setup(x => x.DescribeInstancesAsync(It.Is<DescribeInstancesRequest>(request =>
+                    request.InstanceIds[0] == instanceId),
+                default))
+            .ThrowsAsync(exception);
+
+        // Act
+        var act = async () => await _sut.GetVmInstanceState(instanceId);
+
+        // Assert
+        await act.Should()
+            .ThrowAsync<ServiceInstanceException>()
+            .Where(e => e.StatusCode == HttpStatusCode.InternalServerError &&
+                        e.Message == "Error retrieving VM instance state." &&
+                        e.InnerException == exception);
+        VerifyAll();
+    }
+
+    [Fact]
     public void Dispose_ShouldDisposeEc2Client()
     {
         // Arrange
