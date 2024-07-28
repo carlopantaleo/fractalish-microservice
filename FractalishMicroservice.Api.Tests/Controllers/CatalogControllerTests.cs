@@ -24,7 +24,7 @@ public class CatalogControllerTests : TestBase
     }
 
     [Fact]
-    public void GetCatalog_ShouldReturnOkResult_WithServices()
+    public void GetCatalog_ShouldReturnOkResultWithServices()
     {
         // Arrange
         var services = _fixture.CreateMany<ServiceOffering>(2).ToList();
@@ -42,7 +42,7 @@ public class CatalogControllerTests : TestBase
     }
 
     [Fact]
-    public void GetCatalog_NoServicesConfigured_ShouldReturnEmptyList()
+    public void GetCatalog_NoServicesConfigured_ReturnEmptyList()
     {
         // Act
         var result = _sut.GetCatalog();
