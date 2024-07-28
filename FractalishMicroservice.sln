@@ -1,0 +1,94 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalishMicroservice.App", "FractalishMicroservice.App\FractalishMicroservice.App.csproj", "{C0AA0D2E-6965-4EC0-BB18-E7464C461B4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalishMicroservice.Abstractions", "FractalishMicroservice.Abstractions\FractalishMicroservice.Abstractions.csproj", "{F1CF88B9-11F1-4CCD-ACB6-29E87C552F6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalishMicroservice.Implementation.Aws", "FractalishMicroservice.Implementation.Aws\FractalishMicroservice.Implementation.Aws.csproj", "{3C1A2C85-21D8-4C71-A0D2-EE9893D5B844}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalishMicroservice.Implementation.Aws.Tests", "FractalishMicroservice.Implementation.Aws.Tests\FractalishMicroservice.Implementation.Aws.Tests.csproj", "{9C8FB8A7-2F88-40DE-AD46-24B16C127260}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalishMicroservice.Tests.Common", "FractalishMicroservice.Tests.Common\FractalishMicroservice.Tests.Common.csproj", "{B69B2C4C-A37C-480D-BED6-1FC918DA6E7F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{F952DC8B-304C-4566-9D70-64B8B262DEA9}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.gitignore = .gitignore
+		README.md = README.md
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalishMicroservice.Abstractions.Tests", "FractalishMicroservice.Abstractions.Tests\FractalishMicroservice.Abstractions.Tests.csproj", "{FB74EEF9-593E-43CF-879A-4F1DBEBA377E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalishMicroservice.Api", "FractalishMicroservice.Api\FractalishMicroservice.Api.csproj", "{FB0E0A44-6BBF-450E-BCF6-E4FED1FBA531}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalishMicroservice.Api.Tests", "FractalishMicroservice.Api.Tests\FractalishMicroservice.Api.Tests.csproj", "{BFFFFDAE-378F-4720-9DD8-DD2C08623A5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalishMicroservice.Infrastructure", "FractalishMicroservice.Infrastructure\FractalishMicroservice.Infrastructure.csproj", "{3FB989CB-66A1-47A3-AC94-AC4C943FE9F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalishMicroservice.Infrastructure.Tests", "FractalishMicroservice.Infrastructure.Tests\FractalishMicroservice.Infrastructure.Tests.csproj", "{D692295E-9C7C-4893-9030-164A54141045}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{8C135CCD-6081-461F-B3E3-1D65D2A9FD16}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{F1827987-A419-4A4B-BDE2-1DD9074EAC9A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0AA0D2E-6965-4EC0-BB18-E7464C461B4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0AA0D2E-6965-4EC0-BB18-E7464C461B4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0AA0D2E-6965-4EC0-BB18-E7464C461B4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0AA0D2E-6965-4EC0-BB18-E7464C461B4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1CF88B9-11F1-4CCD-ACB6-29E87C552F6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1CF88B9-11F1-4CCD-ACB6-29E87C552F6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1CF88B9-11F1-4CCD-ACB6-29E87C552F6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1CF88B9-11F1-4CCD-ACB6-29E87C552F6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C1A2C85-21D8-4C71-A0D2-EE9893D5B844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C1A2C85-21D8-4C71-A0D2-EE9893D5B844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C1A2C85-21D8-4C71-A0D2-EE9893D5B844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C1A2C85-21D8-4C71-A0D2-EE9893D5B844}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C8FB8A7-2F88-40DE-AD46-24B16C127260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C8FB8A7-2F88-40DE-AD46-24B16C127260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C8FB8A7-2F88-40DE-AD46-24B16C127260}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C8FB8A7-2F88-40DE-AD46-24B16C127260}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B69B2C4C-A37C-480D-BED6-1FC918DA6E7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B69B2C4C-A37C-480D-BED6-1FC918DA6E7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B69B2C4C-A37C-480D-BED6-1FC918DA6E7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B69B2C4C-A37C-480D-BED6-1FC918DA6E7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB74EEF9-593E-43CF-879A-4F1DBEBA377E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB74EEF9-593E-43CF-879A-4F1DBEBA377E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB74EEF9-593E-43CF-879A-4F1DBEBA377E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB74EEF9-593E-43CF-879A-4F1DBEBA377E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB0E0A44-6BBF-450E-BCF6-E4FED1FBA531}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB0E0A44-6BBF-450E-BCF6-E4FED1FBA531}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB0E0A44-6BBF-450E-BCF6-E4FED1FBA531}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB0E0A44-6BBF-450E-BCF6-E4FED1FBA531}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFFFFDAE-378F-4720-9DD8-DD2C08623A5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFFFFDAE-378F-4720-9DD8-DD2C08623A5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFFFFDAE-378F-4720-9DD8-DD2C08623A5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFFFFDAE-378F-4720-9DD8-DD2C08623A5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FB989CB-66A1-47A3-AC94-AC4C943FE9F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FB989CB-66A1-47A3-AC94-AC4C943FE9F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FB989CB-66A1-47A3-AC94-AC4C943FE9F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FB989CB-66A1-47A3-AC94-AC4C943FE9F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D692295E-9C7C-4893-9030-164A54141045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D692295E-9C7C-4893-9030-164A54141045}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D692295E-9C7C-4893-9030-164A54141045}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D692295E-9C7C-4893-9030-164A54141045}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F1CF88B9-11F1-4CCD-ACB6-29E87C552F6E} = {8C135CCD-6081-461F-B3E3-1D65D2A9FD16}
+		{FB0E0A44-6BBF-450E-BCF6-E4FED1FBA531} = {8C135CCD-6081-461F-B3E3-1D65D2A9FD16}
+		{C0AA0D2E-6965-4EC0-BB18-E7464C461B4E} = {8C135CCD-6081-461F-B3E3-1D65D2A9FD16}
+		{3C1A2C85-21D8-4C71-A0D2-EE9893D5B844} = {8C135CCD-6081-461F-B3E3-1D65D2A9FD16}
+		{3FB989CB-66A1-47A3-AC94-AC4C943FE9F8} = {8C135CCD-6081-461F-B3E3-1D65D2A9FD16}
+		{FB74EEF9-593E-43CF-879A-4F1DBEBA377E} = {F1827987-A419-4A4B-BDE2-1DD9074EAC9A}
+		{BFFFFDAE-378F-4720-9DD8-DD2C08623A5C} = {F1827987-A419-4A4B-BDE2-1DD9074EAC9A}
+		{9C8FB8A7-2F88-40DE-AD46-24B16C127260} = {F1827987-A419-4A4B-BDE2-1DD9074EAC9A}
+		{D692295E-9C7C-4893-9030-164A54141045} = {F1827987-A419-4A4B-BDE2-1DD9074EAC9A}
+		{B69B2C4C-A37C-480D-BED6-1FC918DA6E7F} = {F1827987-A419-4A4B-BDE2-1DD9074EAC9A}
+	EndGlobalSection
+EndGlobal
