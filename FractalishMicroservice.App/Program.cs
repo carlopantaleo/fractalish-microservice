@@ -1,6 +1,11 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using FractalishMicroservice.Abstractions.Vm;
 using FractalishMicroservice.Api.Models;
+using FractalishMicroservice.Implementation.Aws.Configuration;
+using FractalishMicroservice.Implementation.Aws.Vm;
+using FractalishMicroservice.Infrastructure.Middlewares;
+using FractalishMicroservice.Infrastructure.Osb;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,18 +21,24 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configure Catalog
-builder.Services.Configure<CatalogConfiguration>(builder.Configuration.GetSection("Catalog"));
+builder.Services
+    .AddScoped<IOsbService, OsbService>()
+    .AddScoped<IVmInstanceService, AwsVmInstanceService>()
+    .AddAwsServices();
 
+// Configure Catalog and AWS services
+builder.Services.Configure<CatalogConfiguration>(builder.Configuration.GetSection("Catalog"));
+builder.Services.Configure<AwsConfiguration>(builder.Configuration.GetSection("AwsConfiguration"));
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app
+    .UseSwagger()
+    .UseSwaggerUI()
+    .UseMiddleware<ExceptionHandlerMiddleware>();
+
+app.MapControllers();
 
 app.UseHttpsRedirection();
 
