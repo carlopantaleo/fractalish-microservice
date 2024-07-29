@@ -11,7 +11,7 @@ appropriate classes for other cloud providers.
 
 ## Design Choices
 
-- **OSB API Compliance**: The API surface tries to strictly adheres to the OSB API specification. Since this is a 
+- **OSB API Compliance**: The API surface tries to strictly adhere to the OSB API specification. Since this is a 
   10-hour challenge, only a small part of the specification is implemented.
 - **Layered Architecture**:
     - **API**: Exposes RESTful endpoints according to OSB API spec using ASP.NET controllers.
@@ -74,7 +74,7 @@ appropriate classes for other cloud providers.
 2. **Building the Project**:
     - `dotnet build`
 3. **Running the Microservice**:
-    - `dotnet run --project FractalishMicroservice.Api`
+    - `dotnet run --launch-profile https --project FractalishMicroservice.App`
 
 ### In a Docker container
 
@@ -139,15 +139,15 @@ GET /v2/catalog
 }
 ```
 
-### Service Instance Provisioning (PUT /v2/service_instances/{instanceId})
+### Service Instance Provisioning (PUT /v2/service_instances/{instance_id})
 
 **Request Body Parameters:**
 
-- `instanceId`: (path) A GUID identifying the service instance. This is provided by the client.
-- `serviceId`:  The ID of the service from the catalog (e.g., "example-service-id").
-- `planId`: The ID of the plan to provision (e.g., "example-plan-id").
-- `organizationGuid`: An ID representing the owning organization.
-- `spaceGuid`: An ID representing the target space within an organization.
+- `instance_id`: (path) A GUID identifying the service instance. This is provided by the client.
+- `service_id`:  The ID of the service from the catalog (e.g., "example-service-id").
+- `plan_id`: The ID of the plan to provision (e.g., "example-plan-id").
+- `organization_guid`: An ID representing the owning organization.
+- `space_guid`: An ID representing the target space within an organization.
 
 **Example Request:**
 
@@ -176,7 +176,12 @@ Content-Type: application/json
 }
 ```
 
-### Service Instance Deprovisioning (DELETE /v2/service_instances/{instanceId})
+**Remarks**
+
+In this demo, since the catalog is mocked in `appsettings.json`, no checks are performed on `instance_id` and 
+`plan_id` and they should correspond to VM images and plans available for the AWS account used.
+
+### Service Instance Deprovisioning (DELETE /v2/service_instances/{instance_id})
 
 Deprovision an instance.
 
@@ -185,8 +190,7 @@ Deprovision an instance.
 ```http
 DELETE /v2/service_instances/your-instance-guid-here
 ```
-- `instanceId`: (path) A GUID identifying the service instance. This should be the ID provided by the client when 
-  provisioning, however in this demo this is the AWS instance ID.
+- `instance_id`: (path) A GUID identifying the service instance.
 
 **Response:**
 
@@ -194,17 +198,21 @@ DELETE /v2/service_instances/your-instance-guid-here
 200 OK
 ```
 
-### Service Instance Fetching (GET /v2/service_instances/{instanceId})
+**Remarks**
 
-Retrieve the state and other relevant information for a provisioned instance. In this demo, some response data is 
-mocked.
+`instance_id` should be the ID provided by the client when provisioning, however in this demo this is the AWS instance
+ID.
+
+### Service Instance Fetching (GET /v2/service_instances/{instance_id})
+
+Retrieve the state and other relevant information for a provisioned instance.
 
 **Request:**
 
 ```http
 GET /v2/service_instances/your-instance-guid-here
 ```
-- `instanceId`: (path) A GUID identifying the service instance. This should be the ID provided by the client when
+- `instance_id`: (path) A GUID identifying the service instance. This should be the ID provided by the client when
   provisioning, however in this demo this is the AWS instance ID.
 
 **Response:**
@@ -218,3 +226,7 @@ GET /v2/service_instances/your-instance-guid-here
   }
 } 
 ```
+
+**Remarks**
+
+In this demo, some response data is mocked.
