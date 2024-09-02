@@ -2,7 +2,49 @@
 
 A 10-hour challenge by YanchWare.
 
-## Abstract
+---
+
+## The challenge (original requirements)
+
+**Background**: At YanchWare, we're producing products focusing on cloud infrastructure automation to streamline our 
+customers' development and deployment processes. We want to see how you would tackle a similar challenge.
+
+**Problem**: Design and implement a microservice that interacts with a major cloud provider's API (AWS, Azure, or GCP) 
+to automate the provisioning of compute resources (It could be VMs, K8s clusters, Functions, etc.). The 
+microservice should:
+- Securely authenticate with the cloud provider using appropriate credentials and authentication mechanisms.
+- Receive requests to create and manage compute resources through OSB APIs (Open Service Broker API).
+- Translate OSB API requests into the specific API calls required by the chosen cloud provider.
+- Provision the requested compute resources on the cloud platform.
+- Expose OSB API endpoints for:
+  - Provisioning new instances
+  - Deprovisioning (deleting) instances
+  - Binding services (e.g., associating storage or networking)
+  - Unbinding services
+  - Managing instance lifecycle (start, stop, restart)
+
+**Technical Considerations**:
+- Language: Java or C#
+- Cloud Provider: Your choice (AWS, Azure, or GCP)
+- API Framework: Your choice (Spring Boot, Micronaut, etc.)
+- API Specification: OSB APIs (v2.15 or later)
+- Bonus Points:
+  - Include unit and integration tests
+  - Demonstrate clean code principles (SOLID, DRY)
+  - Use modern patterns and best practices
+  - Focus on production-ready code quality
+  - Consider error handling, scalability, and security
+
+**Deliverables**:
+- Public Repository: Please create a public GitHub (or similar) repository containing your source code.
+- Documentation: Include a README (or separate document) that details your design choices, the technologies used, how 
+to run the microservice, and any assumptions made. Also, include clear instructions on how to interact with your OSB API endpoints.
+
+**Timeframe**: You have a total of 10 hours to complete this challenge.
+
+---
+
+## The solution (my implementation)
 
 This microservice implements a simple Cloud Service Broker exposing an Open Service Broker API (OSB API) compliant
 interface. It allows provisioning and managing of virtual machines (VMs) using Amazon Web Services (AWS) as the
