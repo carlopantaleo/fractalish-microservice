@@ -1,13 +1,10 @@
 # Fractalish Microservice
 
-A 10-hour challenge by YanchWare.
+A 10-hour challenge.
 
 ---
 
 ## The challenge (original requirements)
-
-**Background**: At YanchWare, we're producing products focusing on cloud infrastructure automation to streamline our 
-customers' development and deployment processes. We want to see how you would tackle a similar challenge.
 
 **Problem**: Design and implement a microservice that interacts with a major cloud provider's API (AWS, Azure, or GCP) 
 to automate the provisioning of compute resources (It could be VMs, K8s clusters, Functions, etc.). The 
